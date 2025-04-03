@@ -1,0 +1,24 @@
+# Build directories
+/build
+/build-*
+/cmake-build-debug
+/cmake-build-release
+
+# Generated protobuf files (if you want to regenerate them on demand)
+*.pb.cc
+*.pb.h
+*.grpc.pb.cc
+*.grpc.pb.h
+
+# Ignore large data file in client folder
+client/data.csv
+
+# Python virtual environment and caches
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# MacOS specific
+.DS_Store

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package datatransfer;
+
+message CollisionRecordMsg {
+  int32 crash_date = 1;
+  int32 crash_time = 2;
+  int32 persons_injured = 3;
+  int32 persons_killed = 4;
+  int32 pedestrians_injured = 5;
+  int32 pedestrians_killed = 6;
+  int32 cyclists_injured = 7;
+  int32 cyclists_killed = 8;
+  int32 motorists_injured = 9;
+  int32 motorists_killed = 10;
+}
+
+message SendDataResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// The SendDataRequest message is used for the unary RPC.
+message SendDataRequest {
+  CollisionRecordMsg record = 1;
+}
+
+service DataTransfer {
+  rpc SendData(SendDataRequest) returns (SendDataResponse);
+  // Client-side streaming RPC: the client sends a stream of CollisionRecordMsg and
+  // the server returns one final response.
+  rpc StreamData(stream CollisionRecordMsg) returns (SendDataResponse);
+}
