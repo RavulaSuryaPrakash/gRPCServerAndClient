@@ -9,7 +9,7 @@
 *.pb.h
 *.grpc.pb.cc
 *.grpc.pb.h
-
+*.topology.json
 # Ignore large data file in client folder
 client/data.csv
 
