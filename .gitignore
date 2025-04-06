@@ -22,3 +22,4 @@ __pycache__/
 
 # MacOS specific
 .DS_Store
+topology.json
