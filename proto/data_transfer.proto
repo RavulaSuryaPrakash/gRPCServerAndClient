@@ -30,4 +30,5 @@ service DataTransfer {
   // Client-side streaming RPC: the client sends a stream of CollisionRecordMsg and
   // the server returns one final response.
   rpc StreamData(stream CollisionRecordMsg) returns (SendDataResponse);
+  rpc ForwardRecord(CollisionRecordMsg) returns (SendDataResponse);
 }

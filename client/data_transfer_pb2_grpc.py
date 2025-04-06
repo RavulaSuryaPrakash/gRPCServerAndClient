@@ -44,6 +44,11 @@ class DataTransferStub(object):
                 request_serializer=data__transfer__pb2.CollisionRecordMsg.SerializeToString,
                 response_deserializer=data__transfer__pb2.SendDataResponse.FromString,
                 _registered_method=True)
+        self.ForwardRecord = channel.unary_unary(
+                '/datatransfer.DataTransfer/ForwardRecord',
+                request_serializer=data__transfer__pb2.CollisionRecordMsg.SerializeToString,
+                response_deserializer=data__transfer__pb2.SendDataResponse.FromString,
+                _registered_method=True)
 
 
 class DataTransferServicer(object):
@@ -63,6 +68,13 @@ class DataTransferServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ForwardRecord(self, request, context):
+        """Add ForwardRecord RPC for forwarding records
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DataTransferServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -73,6 +85,11 @@ def add_DataTransferServicer_to_server(servicer, server):
             ),
             'StreamData': grpc.stream_unary_rpc_method_handler(
                     servicer.StreamData,
+                    request_deserializer=data__transfer__pb2.CollisionRecordMsg.FromString,
+                    response_serializer=data__transfer__pb2.SendDataResponse.SerializeToString,
+            ),
+            'ForwardRecord': grpc.unary_unary_rpc_method_handler(
+                    servicer.ForwardRecord,
                     request_deserializer=data__transfer__pb2.CollisionRecordMsg.FromString,
                     response_serializer=data__transfer__pb2.SendDataResponse.SerializeToString,
             ),
@@ -129,6 +146,33 @@ class DataTransfer(object):
             request_iterator,
             target,
             '/datatransfer.DataTransfer/StreamData',
+            data__transfer__pb2.CollisionRecordMsg.SerializeToString,
+            data__transfer__pb2.SendDataResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ForwardRecord(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/datatransfer.DataTransfer/ForwardRecord',
             data__transfer__pb2.CollisionRecordMsg.SerializeToString,
             data__transfer__pb2.SendDataResponse.FromString,
             options,
